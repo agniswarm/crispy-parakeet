@@ -9,7 +9,7 @@ from flask import jsonify
 def hello_world():
     url = "https://coinmarketcap.com/all/views/all/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.content, "lxml")
+    soup = BeautifulSoup(r.content)
     dict = {"API": "CryptoSure", "coins": {}}
     for currency in soup.find_all('tr'):
         if(len(currency.select('.currency-name-container')) == 0):
