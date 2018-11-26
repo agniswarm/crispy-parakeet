@@ -1,11 +1,11 @@
 from flask import Flask
-app = Flask(__name__)
+application = Flask(__name__)
 from bs4 import BeautifulSoup
 import requests
 from flask import jsonify
 
 
-@app.route('/')
+@application.route('/')
 def hello_world():
     url = "https://coinmarketcap.com/all/views/all/"
     r = requests.get(url)
@@ -59,4 +59,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
