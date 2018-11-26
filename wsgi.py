@@ -1,18 +1,16 @@
 from flask import Flask
 app = Flask(__name__)
 from bs4 import BeautifulSoup
-import urllib.request
+import requests
 from flask import jsonify
 
 
 @app.route('/')
 def hello_world():
-    opener = urllib.request.FancyURLopener({})
     url = "https://coinmarketcap.com/all/views/all/"
-    f = opener.open(url)
-    content = f.read()
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "lxml")
     dict = {"API": "CryptoSure", "coins": {}}
-    soup = BeautifulSoup(content, "lxml")
     for currency in soup.find_all('tr'):
         if(len(currency.select('.currency-name-container')) == 0):
             continue

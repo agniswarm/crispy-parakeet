@@ -1,12 +1,18 @@
 from bs4 import BeautifulSoup
 import urllib.request
-
-opener = urllib.request.FancyURLopener({})
+import requests 
 url = "https://coinmarketcap.com/all/views/all/"
-f = opener.open(url)
-content = f.read()
+  
+# URL of the image to be downloaded is defined as image_url 
+r = requests.get(url)
+# opener = urllib.request.FancyURLopener({})
+# f = opener.open(url)
+# content = r.read()
 dict = {"API": "CryptoSure", "coins": {}}
-soup = BeautifulSoup(content, "lxml")
+# soup = BeautifulSoup(content, "lxml")
+soup = BeautifulSoup(r.content, "lxml")
+# print(soup.prettify())
+# print((len(soup.find_all('tr'))))
 for currency in soup.find_all('tr'):
     if(len(currency.select('.currency-name-container')) == 0):
         continue
