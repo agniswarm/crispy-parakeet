@@ -9,7 +9,7 @@ from flask import jsonify
 def hello_world():
     url = "https://coinmarketcap.com/all/views/all/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.content)
+    soup = BeautifulSoup(r.content, "html.parser")
     dict = {"API": "CryptoSure", "coins": {}}
     for currency in soup.find_all('tr'):
         if(len(currency.select('.currency-name-container')) == 0):
@@ -24,7 +24,8 @@ def hello_world():
         currency_symbol = currency.select('.col-symbol')[0].get_text()
         currency_market_cap = currency.select(
             '.market-cap')[0].get_text().replace("\n", "").replace("$", "")
-        currency_price = currency.select('.price')[0].get_text().replace("$", "")
+        currency_price = currency.select(
+            '.price')[0].get_text().replace("$", "")
         currency_curculating_supply = currency.select(
             '.circulating-supply')[0].get_text().replace("\n", "").replace('*', "")
         currency_change = currency.select('.percent-change')
@@ -55,7 +56,6 @@ def hello_world():
         }
         dict['coins'][currency_symbol] = temp_dict
     return jsonify(dict)
-
 
 
 if __name__ == '__main__':
