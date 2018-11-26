@@ -1,4 +1,4 @@
-install --upgrade pip
+pip>=18.0
 bs4
 urllib
 flask
