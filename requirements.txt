@@ -1,3 +1,4 @@
+pip
 bs4
 urllib
 flask
